@@ -2,7 +2,7 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "serve": "nodemon index.ts"
+        "serve": "nodemon src/api/index.ts"
     },
     "keywords": [],
     "author": "",
