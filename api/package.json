@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "serve": "nodemon src/api/index.ts",
+    "start": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,9 +20,13 @@
   },
   "dependencies": {
     "async": "^3.2.1",
+    "body-parser": "^1.19.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
+    "mongodb": "^4.3.1",
     "nodemon": "^2.0.13",
+    "serve": "^13.0.2",
     "ts-node": "^10.3.0",
     "tslint": "^6.1.3"
   }
