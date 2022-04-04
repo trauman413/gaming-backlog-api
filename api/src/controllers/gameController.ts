@@ -46,14 +46,9 @@ export let createGame = async (req: Request, res: Response) => {
     }
 }
 
-// Add to library 
-// TODO: change all of below; make it a PUT request
+// Add to library ==> TODO: change to PUT?
 export let addToLibrary = async (req: Request, res: Response) => {
     try {
-        /**
-         * Add game to library
-         * 
-         */
         const gameId = req?.params?.gameId;
         const libraryId = req.body.libraryId;
         const query = { _id: new ObjectId(libraryId) };

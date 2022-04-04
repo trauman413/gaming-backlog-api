@@ -10,13 +10,6 @@ const PORT = process.env.PORT || 3001
 const app = express()
 app.use(cors())
 
-// app.use(gameRouter)
-// app.use(libraryRouter)
-
-// app.listen(PORT, () => {
-//     console.log("Hello!")
-// })
-
 connectToDatabase()
     .then(() => {
         app.use(gameRouter);
