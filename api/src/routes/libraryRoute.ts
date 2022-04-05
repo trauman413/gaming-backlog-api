@@ -16,8 +16,6 @@ libraryRouter.get(LIBRARY_ROUTE, getLibraries)
 // Get single library
 libraryRouter.get(`${LIBRARY_ROUTE}/:libraryId`, getSingleLibrary)
 
-// Get games from library
-
 // Create Library
 libraryRouter.post(LIBRARY_ROUTE, createLibrary)
 

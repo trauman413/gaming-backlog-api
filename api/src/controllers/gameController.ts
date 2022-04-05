@@ -33,7 +33,6 @@ export let getSingleGame = async (req: Request, res: Response) => {
 // POST game 
 export let createGame = async (req: Request, res: Response) => {
     try {
-        // TODO: validation
         const newGame = req.body as GameModel;
         const result = await collections.games!!.insertOne(newGame);
 

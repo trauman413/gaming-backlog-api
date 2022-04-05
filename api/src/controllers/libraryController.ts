@@ -34,7 +34,6 @@ export let createLibrary = async (req: Request, res: Response) => {
             req.body.games = [];
         }
         const newLibrary: LibraryModel = req.body;
-        // TODO: need to validate 
         const result = await collections.libraries!!.insertOne(newLibrary);
         result
             ? res.status(201).send(`Successfully created a new library with id ${result.insertedId}`)
