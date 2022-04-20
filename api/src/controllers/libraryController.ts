@@ -37,7 +37,7 @@ export let createLibrary = async (req: Request, res: Response) => {
         const result = await collections.libraries!!.insertOne(newLibrary);
         result
             ? res.status(201).send(`Successfully created a new library with id ${result.insertedId}`)
-            : res.status(500).send("Failed to create a new game.");
+            : res.status(500).send("Failed to create a new library.");
     } catch (error: any) {
         console.error(error);
         res.status(400).send(error.message);
