@@ -43,3 +43,27 @@ export let createLibrary = async (req: Request, res: Response) => {
         res.status(400).send(error.message);
     }
 }
+
+/**
+ * Adds a game to a specified library
+ * 
+ * @param req
+ * @param res
+ */
+export let addToLibrary = async (req: Request, res: Response) => {
+    try {
+        const libraryId = req?.params?.libraryId;
+        const gameId = req.body.gameId;
+        const query = { _id: new ObjectId(libraryId) };
+        const library = (await collections.libraries?.findOne(query)) as unknown as LibraryModel;
+        library.games.push (gameId);
+        const newValues = { $set : { games: library.games }}
+        const result = await collections.libraries?.updateOne(query, newValues);
+        result
+            ? res.status(200).send(`Successfully added game to library`)
+            : res.status(304).send(`Library with id: ${libraryId} not updated`);
+    } catch (error: any) {
+        console.error(error);
+        res.status(400).send(error.message);
+    }
+}

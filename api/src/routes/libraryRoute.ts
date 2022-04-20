@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { constants } from '../defs/constants'
-import { getSingleLibrary, getLibraries, createLibrary } from '../controllers/libraryController'
+import { getSingleLibrary, getLibraries, createLibrary, addToLibrary } from '../controllers/libraryController'
 
 const libraryRouter = express.Router();
 
@@ -19,6 +19,8 @@ libraryRouter.get(`${LIBRARY_ROUTE}/:libraryId`, getSingleLibrary)
 // Create Library
 libraryRouter.post(LIBRARY_ROUTE, createLibrary)
 
+// Add game to library
+libraryRouter.patch(`${LIBRARY_ROUTE}/:libraryId`, addToLibrary)
 
 
 module.exports = libraryRouter;
