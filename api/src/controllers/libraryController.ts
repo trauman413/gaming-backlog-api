@@ -3,6 +3,9 @@ import { ObjectId } from "mongodb";
 import { collections } from "../util/connection";
 import { LibraryModel } from '../models/LibraryModel';
 
+/**
+ * Returns all of the libraries
+ */
 export let getLibraries = async (req: Request, res: Response) => {
     try {
         const libraries = (await collections.libraries!!.find({}).toArray()) as unknown as LibraryModel[];
@@ -13,6 +16,9 @@ export let getLibraries = async (req: Request, res: Response) => {
      }
 }
 
+/**
+ * Returns a single library specified from a given libraryID 
+ */
 export let getSingleLibrary = async (req: Request, res: Response) => {
     const libId = req?.params?.libraryId;
     try {
@@ -27,7 +33,9 @@ export let getSingleLibrary = async (req: Request, res: Response) => {
     }
 }
 
-
+/**
+ * Creates a new library with a provided library. If no games are provided, it creates an empty games array.
+ */
 export let createLibrary = async (req: Request, res: Response) => {
     try {
         if (!req.body.games) {
@@ -47,8 +55,6 @@ export let createLibrary = async (req: Request, res: Response) => {
 /**
  * Adds a game to a specified library
  * 
- * @param req
- * @param res
  */
 export let addToLibrary = async (req: Request, res: Response) => {
     try {
