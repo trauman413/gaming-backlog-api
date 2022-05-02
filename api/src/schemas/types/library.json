@@ -1,27 +1,27 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "gamebacklog:library.schema.json",
-    "title": "Library",
-    "description": "The details of a library storing games",
-    "type": "object",
-    "properties": {
-        "id": {
-            "type": "string"
-        },
-        "name": {
-            "type": "string"
-        },
-        "games": {
-            "description": "A list of the game instance IDs stored in this library.",
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        }
+  "$schema": 'http://json-schema.org/draft-07/schema',
+  "$id": 'gamebacklog:library.schema.json',
+  "title": 'Library',
+  "description": 'The details of a library storing games',
+  "type": 'object',
+  "properties": {
+    "id": {
+      "type": 'string'
     },
-    "required": [
-        "id",
-        "name",
-        "games"
-    ]
+    "name": {
+      "type": 'string'
+    },
+    "games": {
+      "description": 'A list of the game instance IDs stored in this library.',
+      "type": 'array',
+      "items": {
+        "type": 'string'
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "games"
+  ]
 }
