@@ -1,8 +1,8 @@
 const Routes = {
-    LIBRARIES: "libraries",
-    GAMES: "games"
+  LIBRARIES: 'libraries',
+  GAMES: 'games'
 }
 
 export const constants = {
-    Routes: Routes
+  Routes
 }
