@@ -1,6 +1,5 @@
+import { GameCard } from "components/GameCard";
 import React from "react";
-import { GameCard } from "../components/GameCard";
-import logo from "../logo.svg"
 
 export function GamePage() {
 
@@ -11,7 +10,6 @@ export function GamePage() {
 
     const getImage = () => {
         //TODO: fetch image from API 
-        return logo;
     }
 
     const getDescription = () => {
