@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ObjectId } from "mongodb";
 import { collections } from "../util/connection";
-import { GameModel } from '../models/GameModel';
+import { GameInstanceModel } from '../models/GameInstanceModel';
 
 /**
  * Returns all of the games currently stored in the database irregardless of library.
@@ -10,7 +10,7 @@ import { GameModel } from '../models/GameModel';
  */
 export let getGames = async (req: Request, res: Response) => {
     try {
-        const games = (await collections.games!!.find({}).toArray()) as GameModel[];
+        const games = (await collections.games!!.find({}).toArray()) as GameInstanceModel[];
  
          res.status(200).send(games);
      } catch (error: any) {
@@ -27,7 +27,7 @@ export let getSingleGame = async (req: Request, res: Response) => {
     const gameId = req?.params?.gameId;
     try {
         const query = { _id: new ObjectId(gameId) };
-        const game = (await collections.games!!.findOne(query)) as GameModel;
+        const game = (await collections.games!!.findOne(query)) as GameInstanceModel;
 
         if (game) {
             res.status(200).send(game);
@@ -44,7 +44,7 @@ export let getSingleGame = async (req: Request, res: Response) => {
  */
 export let createGame = async (req: Request, res: Response) => {
     try {
-        const newGame = req.body as GameModel;
+        const newGame = req.body as GameInstanceModel;
         const result = await collections.games!!.insertOne(newGame);
 
         result
