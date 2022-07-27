@@ -22,3 +22,7 @@ connectToDatabase()
     console.error('Database connection failed', error)
     process.exit()
   })
+
+function foo () {
+    return 1;
+}
