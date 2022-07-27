@@ -6,8 +6,8 @@
   "scripts": {
     "prepare": "husky install",
     "start": "nodemon src/server.ts",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix src/**/*.ts",
+    "lint": "eslint src/*.ts src/**/*.ts",
+    "lint:fix": "eslint --fix src/*.ts src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
