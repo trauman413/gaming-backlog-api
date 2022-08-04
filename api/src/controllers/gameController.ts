@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import { ObjectId } from 'mongodb'
 import { collections } from '../util/connection'
-import { GameInstanceModel } from '../models/GameInstanceModel'
+import { GameModel } from '../models/GameModel'
+import * as igdbClient from '../services/igdbClient'
 
 /**
  * Returns all of the games currently stored in the database irregardless of library.
@@ -10,7 +11,7 @@ import { GameInstanceModel } from '../models/GameInstanceModel'
  */
 export const getGames = async (req: Request, res: Response) => {
   try {
-    const games = (await collections.games!!.find({}).toArray()) as GameInstanceModel[]
+    const games = (await collections.games!!.find({}).toArray()) as GameModel[]
     res.status(200).send(games)
   } catch (error: any) {
     res.status(500).send(error.message)
@@ -26,7 +27,7 @@ export const getSingleGame = async (req: Request, res: Response) => {
   const gameId = req?.params?.gameId
   try {
     const query = { _id: new ObjectId(gameId) }
-    const game = (await collections.games!!.findOne(query)) as GameInstanceModel
+    const game = (await collections.games!!.findOne(query)) as GameModel
 
     if (game) {
       res.status(200).send(game)
@@ -43,7 +44,7 @@ export const getSingleGame = async (req: Request, res: Response) => {
  */
 export const createGame = async (req: Request, res: Response) => {
   try {
-    const newGame = req.body as GameInstanceModel
+    const newGame = req.body as GameModel
     const result = await collections.games!!.insertOne(newGame)
 
     result
@@ -53,4 +54,16 @@ export const createGame = async (req: Request, res: Response) => {
     console.error(error)
     res.status(400).send(error.message)
   }
+}
+
+/**
+ * Fetches a game from IGDB
+ *
+ * TODO: error handling and all that jazz
+ */
+export const getIGDBGame = async (req: Request, res: Response) => {
+  const gameId = req?.params?.gameId
+  const authToken = await igdbClient.authenticate()
+  const result = await igdbClient.gamesRequest(authToken, gameId)
+  res.status(200).send(result)
 }

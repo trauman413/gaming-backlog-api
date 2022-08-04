@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { ObjectId } from 'mongodb'
 import { collections } from '../util/connection'
 import { LibraryModel } from '../models/LibraryModel'
@@ -55,11 +55,13 @@ export const createLibrary = async (req: Request, res: Response) => {
 /**
  * Adds a game to a specified library
  *
+ * TODO: game should be added to "master library" in addition to specific library here.
  */
 export const addToLibrary = async (req: Request, res: Response) => {
   try {
     const libraryId = req?.params?.libraryId
     const gameId = req.body.gameId
+    // todo: create game instance
     const query = { _id: new ObjectId(libraryId) }
     const library = (await collections.libraries?.findOne(query)) as unknown as LibraryModel
     library.games.push(gameId)
