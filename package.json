@@ -4,8 +4,11 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
+    "prepare": "husky install",
     "start": "nodemon src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src/*.ts src/**/*.ts",
+    "lint:fix": "eslint --fix src/*.ts src/**/*.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +28,7 @@
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^28.1.3",
+    "husky": "^8.0.1",
     "typescript": "^4.4.4"
   },
   "dependencies": {
