@@ -58,12 +58,15 @@ export const createGame = async (req: Request, res: Response) => {
 
 /**
  * Fetches a game from IGDB
- *
- * TODO: error handling and all that jazz
  */
 export const getIGDBGame = async (req: Request, res: Response) => {
   const gameId = req?.params?.gameId;
   const authToken = await igdbClient.authenticate();
-  const result = await igdbClient.gamesRequest(authToken, gameId);
-  res.status(200).send(result);
+  try {
+    const result = await igdbClient.gamesRequest(authToken, gameId);
+    res.status(200).send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
 };

@@ -1,4 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
+dotenv.config();
 
 /**
  * Information about a specific field
@@ -45,15 +49,19 @@ type IGDBGame = {
  */
 export const authenticate = async (): Promise<string> => {
   const url = 'https://id.twitch.tv/oauth2/token';
-  const res: any = await axios.post(url, null, {
-    params: {
-      client_id: 'gcicsxic8po9xjyr4x2105gxm0861s',
-      client_secret: 'bnsej7verrbr55dgkdxqk8aocxl2o4',
-      grant_type: 'client_credentials'
-    }
-  });
-  console.log(res.data.access_token);
-  return res.data.access_token;
+  try {
+    const res: any = await axios.post(url, null, {
+      params: {
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
+        grant_type: 'client_credentials'
+      }
+    });
+    return res.data.access_token;
+  } catch (err) {
+    console.error('Error: ', err);
+    throw err;
+  };
 };
 
 /** Retrieves information about a given game and creates an associated Game
@@ -69,7 +77,7 @@ export const gamesRequest = async (accessToken: string, gameID: string): Promise
   const data = 'fields name, platforms.name, genres.name, release_dates.human, summary, franchises.name, involved_companies.company.name, artworks.url; where id =' + gameID + ';';
   const options = {
     headers: {
-      'Client-ID': 'gcicsxic8po9xjyr4x2105gxm0861s',
+      'Client-ID': process.env.CLIENT_ID!,
       Authorization: 'Bearer ' + accessToken
     }
   };
@@ -82,6 +90,6 @@ export const gamesRequest = async (accessToken: string, gameID: string): Promise
     return res.data;
   } catch (err) {
     console.error(err);
-    return [];
+    throw err;
   }
 };
