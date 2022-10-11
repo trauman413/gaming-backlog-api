@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { collections } from '../util/connection';
 import { GameModel } from '../models/GameModel';
+import * as igdbClient from '../services/igdbClient';
 
 /**
  * Returns all of the games currently stored in the database irregardless of library.
@@ -11,7 +12,6 @@ import { GameModel } from '../models/GameModel';
 export const getGames = async (req: Request, res: Response) => {
   try {
     const games = (await collections.games!!.find({}).toArray()) as GameModel[];
-
     res.status(200).send(games);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -53,5 +53,20 @@ export const createGame = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error(error);
     res.status(400).send(error.message);
+  }
+};
+
+/**
+ * Fetches a game from IGDB
+ */
+export const getIGDBGame = async (req: Request, res: Response) => {
+  const gameId = req?.params?.gameId;
+  const authToken = await igdbClient.authenticate();
+  try {
+    const result = await igdbClient.gamesRequest(authToken, gameId);
+    res.status(200).send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
   }
 };
