@@ -73,7 +73,6 @@ export const authenticate = async (): Promise<string> => {
  */
 export const gamesRequest = async (accessToken: string, gameID: string): Promise<IGDBGame[]> => {
   const url = 'https://api.igdb.com/v4/games/';
-  // let gameID = 26758
   const data = 'fields name, platforms.name, genres.name, release_dates.human, summary, franchises.name, involved_companies.company.name, artworks.url; where id =' + gameID + ';';
   const options = {
     headers: {
