@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { collections } from '../util/connection';
 import { LibraryModel } from '../models/LibraryModel';
-import { GameModel } from '../models/GameModel';
 
 /**
  * Returns all of the libraries
