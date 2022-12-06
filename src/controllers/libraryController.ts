@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { collections } from '../util/connection';
 import { LibraryModel } from '../models/LibraryModel';
+import { GameModel } from '../models/GameModel';
 
 /**
  * Returns all of the libraries
@@ -75,3 +76,23 @@ export const addToLibrary = async (req: Request, res: Response) => {
     res.status(400).send(error.message);
   }
 };
+
+/**
+ * Returns a game specified from a given libraryID
+ */
+ export const getGamefromLibrary = async (req: Request, res: Response) => {
+  const libId = req?.params?.libraryId;
+  const gameId = req?.params?.gameId;
+  try { 
+    const libQuery = { _id: new ObjectId(libId) };
+    const gameQuery = { _id: new ObjectId(gameId) };
+    const lib = (await collections.libraries!!.findOne(libQuery)) as unknown as LibraryModel;
+
+    if (lib.games.indexOf(gameId) > -1) {
+      res.status(200).send(gameQuery);
+    }
+
+  } catch (error) {
+    res.status(404).send(`Unable to find game with id: ${gameId} from library with id: ${libId}`);
+  }
+}

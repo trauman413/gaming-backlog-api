@@ -1,6 +1,6 @@
 import express from 'express';
 import { constants } from '../defs/constants';
-import { getSingleLibrary, getLibraries, createLibrary, addToLibrary } from '../controllers/libraryController';
+import { getSingleLibrary, getLibraries, getGamefromLibrary, createLibrary, addToLibrary } from '../controllers/libraryController';
 
 const libraryRouter = express.Router();
 
@@ -14,6 +14,9 @@ libraryRouter.get(LIBRARY_ROUTE, getLibraries);
 
 // Get single library
 libraryRouter.get(`${LIBRARY_ROUTE}/:libraryId`, getSingleLibrary);
+
+// Get game from library
+libraryRouter.get(`${LIBRARY_ROUTE}/:libraryId/:gameId`, getGamefromLibrary);
 
 // Create Library
 libraryRouter.post(LIBRARY_ROUTE, createLibrary);
